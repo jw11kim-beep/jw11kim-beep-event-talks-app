@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Event Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .search-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-section input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 44px;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+
+        .search-section button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .schedule-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .talk-card, .break-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .talk-card h3, .break-card h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.5rem;
+        }
+
+        .talk-card .time, .break-card .time {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .talk-card .speakers, .talk-card .category {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .talk-card .category span {
+            background-color: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .talk-card p {
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .break-card {
+            background-color: #e9f7ff;
+            border-left: 5px solid #007bff;
+            text-align: center;
+        }
+
+        .break-card h3 {
+            color: #007bff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section input[type="text"] {
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tech Event 2026</h1>
+        <p>A day of insightful technical talks</p>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <input type="text" id="categorySearch" placeholder="Search by category...">
+            <button id="searchButton">Search</button>
+            <button id="resetButton">Reset</button>
+        </section>
+
+        <section class="schedule-section">
+            <h2>Event Schedule</h2>
+            <div id="scheduleContainer">
+                <!-- Schedule will be rendered here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Tech Event. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const allTalks = [
+            {
+                title: "The Future of AI in Software Development",
+                speakers: ["Alice Wonderland"],
+                category: ["AI", "Software Engineering"],
+                duration: 60,
+                description: "An insightful look into how AI is transforming the software development lifecycle, from automated code generation to intelligent debugging.",
+            },
+            {
+                title: "Cloud Native Architectures with Kubernetes",
+                speakers: ["Bob Thebuilder", "Charlie Chaplin"],
+                category: ["Cloud", "DevOps", "Kubernetes"],
+                duration: 60,
+                description: "Explore the best practices for building and deploying scalable applications using Kubernetes and other cloud-native tools.",
+            },
+            {
+                title: "Effective State Management in React",
+                speakers: ["David Lee"],
+                category: ["Frontend", "React", "JavaScript"],
+                duration: 60,
+                description: "A deep dive into various state management patterns and libraries in React, including Redux, Zustand, and React Context.",
+            },
+            {
+                title: "Mastering Rust for Systems Programming",
+                speakers: ["Eve Adams"],
+                category: ["Backend", "Systems", "Rust"],
+                duration: 60,
+                description: "Learn the fundamentals of Rust and how to leverage its powerful features for high-performance systems programming.",
+            },
+            {
+                title: "Secure Coding Practices in Web Applications",
+                speakers: ["Frank Green"],
+                category: ["Security", "Web Development"],
+                duration: 60,
+                description: "Discover essential security practices to protect your web applications from common vulnerabilities and attacks.",
+            },
+            {
+                title: "Introduction to Quantum Computing",
+                speakers: ["Grace Hopper"],
+                category: ["Quantum", "Emerging Tech"],
+                duration: 60,
+                description: "An accessible introduction to the fascinating world of quantum computing, its principles, and potential applications.",
+            },
+        ];
+
+        const lunchBreakTalk = {
+            title: "Lunch Break",
+            speakers: [],
+            category: ["Break"],
+            duration: 60,
+            description: "Enjoy a delicious lunch and network with fellow attendees.",
+            isBreak: true // Custom property to easily identify breaks
+        };
+
+        const scheduleContainer = document.getElementById('scheduleContainer');
+        const categorySearchInput = document.getElementById('categorySearch');
+        const searchButton = document.getElementById('searchButton');
+        const resetButton = document.getElementById('resetButton');
+
+        function formatTime(date) {
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function renderSchedule(filterCategory = '') {
+            scheduleContainer.innerHTML = '';
+            
+            // Create the full chronological schedule including lunch
+            let fullSchedule = [];
+            let currentTime = new Date();
+            currentTime.setHours(10, 0, 0, 0); // Event starts at 10:00 AM
+            let talksProcessedForFullSchedule = 0;
+
+            for (let i = 0; i < allTalks.length; i++) {
+                if (talksProcessedForFullSchedule === 3) { // After the 3rd actual talk
+                    fullSchedule.push({
+                        ...lunchBreakTalk,
+                        startTime: formatTime(currentTime),
+                        endTime: formatTime(new Date(currentTime.getTime() + lunchBreakTalk.duration * 60 * 1000))
+                    });
+                    currentTime.setMinutes(currentTime.getMinutes() + lunchBreakTalk.duration); // Advance time for lunch
+                    currentTime.setMinutes(currentTime.getMinutes() + 10); // Transition after lunch
+                }
+
+                const talk = allTalks[i];
+                const talkStartTime = formatTime(currentTime);
+                currentTime.setMinutes(currentTime.getMinutes() + talk.duration);
+                const talkEndTime = formatTime(currentTime);
+
+                fullSchedule.push({
+                    ...talk,
+                    startTime: talkStartTime,
+                    endTime: talkEndTime
+                });
+
+                talksProcessedForFullSchedule++;
+
+                if (i < allTalks.length - 1) { // Add transition after each talk, except the very last one
+                    currentTime.setMinutes(currentTime.getMinutes() + 10); // 10 min transition
+                }
+            }
+
+            // Now, filter this full schedule based on the search category
+            let filteredScheduledItems = fullSchedule.filter(item => {
+                if (item.isBreak) {
+                    // Breaks are always displayed, regardless of filter
+                    return true;
+                }
+                // For talks, apply the category filter
+                return !filterCategory || item.category.some(cat => cat.toLowerCase().includes(filterCategory.toLowerCase()));
+            });
+            
+            // If only breaks are left after filtering and a filter was applied
+            const hasActualTalks = filteredScheduledItems.some(item => !item.isBreak);
+            if (filterCategory && !hasActualTalks) {
+                 scheduleContainer.innerHTML = '<p>No talks found for this category.</p>';
+                 return;
+            }
+
+            if (filteredScheduledItems.length === 0) {
+                 scheduleContainer.innerHTML = '<p>No talks found for this category.</p>';
+                 return;
+            }
+
+
+            filteredScheduledItems.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add(item.isBreak ? 'break-card' : 'talk-card');
+
+                let categoriesHtml = '';
+                if (item.category && item.category.length > 0 && !item.isBreak) {
+                    categoriesHtml = `<div class="category">Category: ${item.category.map(cat => `<span>${cat}</span>`).join('')}</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="time">${item.startTime} - ${item.endTime}</div>
+                    <h3>${item.title}</h3>
+                    ${item.speakers && item.speakers.length > 0 && !item.isBreak ? `<div class="speakers">Speakers: ${item.speakers.join(', ')}</div>` : ''}
+                    ${categoriesHtml}
+                    <p>${item.description}</p>
+                `;
+                scheduleContainer.appendChild(card);
+            });
+        }
+
+        searchButton.addEventListener('click', () => {
+            renderSchedule(categorySearchInput.value);
+        });
+
+        resetButton.addEventListener('click', () => {
+            categorySearchInput.value = '';
+            renderSchedule();
+        });
+
+        // Initial render
+        renderSchedule();
+    </script>
+</body>
+</html>

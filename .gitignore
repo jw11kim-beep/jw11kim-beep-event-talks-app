@@ -1,0 +1,39 @@
+# General
+.DS_Store
+.env
+.env.local
+.venv/
+/node_modules
+/dist
+/build
+/tmp
+/logs
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+lib/
+log/
+bin/
+share/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.bak
+*.swo
+
+# OS generated files
+.Trashes
+ehthumbs.db
+Thumbs.db
